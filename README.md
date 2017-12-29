@@ -97,6 +97,8 @@ Predicting other car behavior can be done using their current position and speed
 4. During lane changing, we shouldn't plan to change again so soon. Just stabilize the car into the goal lane first, before considering lane change again.
 5. I added a discomfort_tailing distance, which keep increasing if there is a slow vehicle ahead but all other potential lanes are not safe; it resets when the car changes lane, or auto-reset from time to time. This encourage our car to slow down further, away from the car ahead, to wait for a lane change; but also it resets the distance from time to time to check if there is a gap for lane switching upfront instead of behind.
 
+![alt text][state]
+
 ## Basic Build Instructions
 
 1. Clone this repo.
