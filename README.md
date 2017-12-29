@@ -75,7 +75,7 @@ The flow is summarized into two stages: state selection and trajectory generatio
 
 #### Trajectory Generation
 
-From Bellman's principle of optimality, at every sampling step we can re-use the proposed trajectory from the previous steps and simply add a few more optimal steps to maintain a fixed horizon of trajectory (in this case, 50 time steps of 20ms each). This will minimize any abrupt change due to previous optimal trajectory and current optimal trajectory and reduce unneccessary jerks.
+From Bellman's principle of optimality, at every sampling step we can re-use the proposed trajectory from the previous steps and simply add a few more optimal steps to maintain a fixed horizon of trajectory (in this case, 50 time steps of 20ms each). This will minimize any abrupt change due to previous optimal trajectory and current optimal trajectory and reduce unnecessary jerks.
 
 ![alt text][frenet]
 
