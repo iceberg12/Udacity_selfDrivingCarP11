@@ -99,6 +99,10 @@ Predicting other car behavior can be done using their current position and speed
 
 ![alt text][state]
 
+#### Result
+
+The link to video is here https://youtu.be/THawmB-wef0. From the video, my average car speed is 49.08/1.05 = 46.74 mph, about 94% efficient compared to the maximum speed 50mph.
+
 ## Basic Build Instructions
 
 1. Clone this repo.
