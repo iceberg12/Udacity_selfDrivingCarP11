@@ -91,9 +91,11 @@ Before constructing the above trajectory, one variable we need to determine is t
 
 Predicting other car behavior can be done using their current position and speed. To plan our car behavior, a few points are considered:
 
-1. When to change lane
-2. Reduce speed when the vehicle ahead is slow
-3. Consider which lane to change to.
+1. When to change lane. This includes close vehicle ahead detection and whether the other lanes are safe to move to. Here we need to predict whether our car will collide with others in a few second ahead.
+2. Reduce speed when the vehicle ahead is slow. Also speed up to the speed limit (50 mph or 22.35 m/s) when there is no close car ahead.
+3. Consider which lane to change to. The must condition is that other lanes are safe. If we are in the middle lane 1 and both lane 0 and 2 (left and right) are safe, I used a simple cost function equal to the sum of (1) distance from closest ahead car if I move to that lane and (2) velocity of that car. This is to avoid moving into a busy lane that might force us to switch lane again.
+4. During lane changing, we shouldn't plan to change again so soon. Just stabilize the car into the goal lane first, before considering lane change again.
+5. I added a discomfort_tailing distance, which keep increasing if there is a slow vehicle ahead but all other potential lanes are not safe; it resets when the car changes lane, or auto-reset from time to time. This encourage our car to slow down further, away from the car ahead, to wait for a lane change; but also it resets the distance from time to time to check if there is a gap for lane switching upfront instead of behind.
 
 ## Basic Build Instructions
 
