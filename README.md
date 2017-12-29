@@ -66,6 +66,35 @@ the path has processed since last time.
 
 ## Algorithm and Implementation
 
+[trajectory]: ./images/trajectory_generation.jpeg
+[state]: ./images/state_optimization.jpeg
+[frenet]: ./images/Frenet.png
+[behavior]: ./images/behavior.png
+
+The flow is summarized into two stages: state selection and trajectory generation.
+
+#### Trajectory Generation
+
+From Bellman's principle of optimality, at every sampling step we can re-use the proposed trajectory from the previous steps and simply add a few more optimal steps to maintain a fixed horizon of trajectory (in this case, 50 time steps of 20ms each). This will minimize any abrupt change due to previous optimal trajectory and current optimal trajectory and reduce unneccessary jerks.
+
+![alt text][frenet]
+
+Assume we have n planned steps which our car hasn't consume from the previous sampling step. Our task is finding the next 50 - n steps that suits the situation. This is first done create a Spline smoothed curve through two points s at the end of the previous planned trajectory and three points far ahead which Frenet coordinates are determined by future (s distance, d distance) (s = [30, 60, 90] m away from the trajectory end, d is the distance from road center and d directly indicates the goal lane). Certainly, the spline calculation can be made easy by advancing the current car coordinate to the end of the previous path. After having the spline, we can use the current car speed to generate 50 - n points along this spline. These points should have consecutive short distance so our car can move between them within 0.02 s (our sampling time).
+
+![alt text][trajectory]
+
+#### Finding Goal Lane
+
+Before constructing the above trajectory, one variable we need to determine is the lane we want the car to go. In principle, this involves predicting where other cars go next and how our car should behave.
+
+![alt text][behavior]
+
+Predicting other car behavior can be done using their current position and speed. To plan our car behavior, a few points are considered:
+
+1. When to change lane
+2. Reduce speed when the vehicle ahead is slow
+3. Consider which lane to change to.
+
 ## Basic Build Instructions
 
 1. Clone this repo.
